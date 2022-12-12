@@ -10,6 +10,12 @@ class Quiz(models.Model):
     def __str__(self):
         return self.title
 
+class Topic(models.Model):
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    title = models.CharField()
+    
+    
+
 class Question(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     title = models.TextField()
@@ -33,7 +39,7 @@ class User(models.Model):
     def __str__(self) -> str:
         return self.first_name
 
-class Detail(models.Model):
+class Result(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     quiz_title = models.CharField(max_length=255)
     result_detail =models.CharField(max_length=255)
@@ -42,7 +48,7 @@ class Detail(models.Model):
     
 class Result_detail(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    detail = models.ForeignKey(Detail, on_delete=models.CASCADE)
+    detail = models.ForeignKey(Result, on_delete=models.CASCADE)
     quation_name = models.CharField(max_length=255)
     is_solved = models.BooleanField(default=False)
     def __str__(self) -> str:

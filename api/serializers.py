@@ -1,4 +1,4 @@
-from .models import Quiz, Question, Option, User, Detail, Result_detail
+from .models import Quiz, Topic, Question, Option, User, Result, Result_detail
 from rest_framework import serializers
 
 class QuizSerializer(serializers.ModelSerializer):
@@ -6,6 +6,10 @@ class QuizSerializer(serializers.ModelSerializer):
         model = Quiz
         fields = '__all__'
 
+class TopicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Topic
+        fields = '__all__'
 
 class QuestionSerializer(serializers.ModelSerializer):
 
@@ -26,16 +30,16 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
-class DetailSerializer(serializers.ModelSerializer):
+class ResultSerializer(serializers.ModelSerializer):
     class Meta:
         user_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
-        model = Detail
+        model = Result
         fields = '__all__'
         
 class ResultDetailSerializer(serializers.ModelSerializer):
     class Meta:
         user_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
-        detail = serializers.PrimaryKeyRelatedField(queryset=Detail.objects.all())
+        detail = serializers.PrimaryKeyRelatedField(queryset=Result.objects.all())
         model = Result_detail
         fields = '__all__'
         
